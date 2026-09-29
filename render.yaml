@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: habit-loop-mirror-backend
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+      - key: KIMI_API_KEY
+        sync: false
+      - key: KIMI_BASE_URL
+        value: https://api.moonshot.cn/v1
+      - key: KIMI_MODEL
+        value: moonshot-v1-8k
