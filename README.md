@@ -210,16 +210,20 @@ npm run build
 
 ## 8. Deployment Guide
 
+See the complete, detailed deployment walkthrough in [**DEPLOYMENT.md**](./DEPLOYMENT.md).
+
 ### Frontend Deployment (Vercel)
 
 1. Push repository to GitHub.
-2. In Vercel, import the repository with Root Directory set to `frontend`.
-3. Set environment variable:
-   - `VITE_API_BASE_URL=https://your-backend-app.onrender.com/api/v1`
-4. Deploy! Single Page Application client-side routing is pre-configured via `vercel.json`.
+2. In Vercel, click **Add New... → Project** and import the repository.
+3. Set **Root Directory** to `frontend`.
+4. In **Environment Variables**, enter:
+   - **Key**: `VITE_API_BASE_URL`
+   - **Value**: `https://your-backend-app.onrender.com/api/v1` *(replace with your live backend URL)*
+5. Click **Deploy**. SPA routing rewrites are pre-configured via `frontend/vercel.json`.
 
 ### Backend Deployment (Render)
 
 1. In Render, select **New → Blueprint** and select `render.yaml`.
-2. Configure the environment variables (`DATABASE_URL`, `SUPABASE_JWT_SECRET`, `KIMI_API_KEY`).
-3. Deploy! The health endpoint will verify database connectivity at `/api/v1/health`.
+2. Configure the environment variables (`DATABASE_URL`, `KIMI_API_KEY`).
+3. Click **Apply**. Verify database connectivity at `https://<your-backend>.onrender.com/api/v1/health`.
