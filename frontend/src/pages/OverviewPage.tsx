@@ -74,8 +74,12 @@ export const OverviewPage: React.FC = () => {
       a.download = `habit_mirror_report_${new Date().toISOString().split('T')[0]}.pdf`;
       document.body.appendChild(a);
       a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
+      setTimeout(() => {
+        if (document.body.contains(a)) {
+          document.body.removeChild(a);
+        }
+        window.URL.revokeObjectURL(url);
+      }, 1500);
     } catch (err) {
       console.error('PDF export failed', err);
     } finally {

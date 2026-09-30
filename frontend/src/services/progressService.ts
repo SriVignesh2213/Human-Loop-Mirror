@@ -58,7 +58,8 @@ export const progressService = {
     if (!response.ok) {
       throw new Error(`Export failed with status ${response.status}`);
     }
-    return response.blob();
+    const rawBlob = await response.blob();
+    return new Blob([rawBlob], { type: 'application/pdf' });
   },
 
   async clearUsageData(): Promise<void> {

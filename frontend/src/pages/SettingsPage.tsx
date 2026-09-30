@@ -104,8 +104,12 @@ export const SettingsPage: React.FC = () => {
       a.download = `habit_mirror_report_${new Date().toISOString().split('T')[0]}.pdf`;
       document.body.appendChild(a);
       a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
+      setTimeout(() => {
+        if (document.body.contains(a)) {
+          document.body.removeChild(a);
+        }
+        window.URL.revokeObjectURL(url);
+      }, 1500);
       setStatusMsg('PDF report generated and downloaded successfully.');
       setTimeout(() => setStatusMsg(null), 3000);
     } catch (err) {
