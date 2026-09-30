@@ -109,7 +109,19 @@ export const OnboardingPage: React.FC = () => {
       await refreshProfile();
       navigate('/overview');
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Could not save onboarding profile.');
+      const msg = err instanceof Error ? err.message : '';
+      if (
+        !msg ||
+        msg.toLowerCase().includes('json') ||
+        msg.toLowerCase().includes('syntax') ||
+        msg.toLowerCase().includes('failed to fetch') ||
+        msg.toLowerCase().includes('network') ||
+        msg.toLowerCase().includes('unexpected')
+      ) {
+        setError('Unable to connect to the calibration service. Please try again.');
+      } else {
+        setError(msg);
+      }
     } finally {
       setSaving(false);
     }
