@@ -13,6 +13,12 @@ export function resolveApiBaseUrl(): string {
     ''
   ).trim();
 
+  // If deployed remotely (e.g. Vercel) and no env var was injected during build,
+  // fall back to the live backend tunnel rather than self-referential /api/v1
+  if (!raw && typeof window !== 'undefined' && window.location.hostname && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1')) {
+    raw = 'https://icy-foxes-join.loca.lt';
+  }
+
   // If empty or relative, default to '/api/v1'
   if (!raw) {
     return '/api/v1';
